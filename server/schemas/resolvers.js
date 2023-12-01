@@ -12,12 +12,12 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async ({ username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, args, context, info) => {
+      const user = await User.create( args );
       const token = signToken(user);
       return { token, user };
     },
-    login: async ({ email, password }) => {
+    login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -34,12 +34,14 @@ const resolvers = {
 
       return { token, user };
     },
-    saveBook: async ({ book }, context) => {
+    saveBook: async (parent, { bookData }, context) => {
       if (context.user) {
         const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: book } }
-        );
+          { $addToSet: { savedBooks: bookData } },
+          {new: true},
+        )
+        .populate("book");
 
         return user;
       }

@@ -16,7 +16,7 @@ import { REMOVE_BOOK } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 
 const SavedBooks = () => {
-  const userData = data?.me || {};
+  const [userData] = useState({});
 
   const { loading, data } = useQuery(QUERY_ME);
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);

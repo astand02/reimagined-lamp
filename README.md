@@ -9,8 +9,6 @@
 
   ## Table Of Contents
   - [Usage](#usage)
-  - [License](#license)
-  - [Contributing](#contributing)
   - [Future Development](#futureDevelopment)
   - [Questions](#questions)
 
